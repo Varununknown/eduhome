@@ -1,0 +1,28 @@
+<!-- Meeting Button and Display Section -->
+<button id="startMeetingBtn" style="margin-top: 20px;">Start Live Class</button>
+
+<p id="roomNameText" style="display:none; margin-top:10px;">
+    Meeting Room: <strong><?php echo 'Room' . rand(1000, 9999); ?></strong>
+</p>
+
+<iframe id="meetingFrame"
+    allow="camera; microphone; fullscreen; display-capture"
+    style="width: 100%; height: 600px; border: none; display: none;"
+    allowfullscreen>
+</iframe>
+
+<script>
+    const meetingBtn = document.getElementById('startMeetingBtn');
+    const meetingFrame = document.getElementById('meetingFrame');
+    const roomNameText = document.getElementById('roomNameText');
+
+    // Extract PHP-generated room name from the paragraph text
+    const roomName = roomNameText.textContent.split(':')[1].trim();
+
+    meetingBtn.addEventListener('click', () => {
+        meetingFrame.src = 'https://meet.jit.si/' + encodeURIComponent(roomName);
+        meetingFrame.style.display = 'block';
+        roomNameText.style.display = 'block';
+        meetingBtn.disabled = true;
+    });
+</script>
